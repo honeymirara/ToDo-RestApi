@@ -7,7 +7,7 @@ export default function Main() {
             <div className={style.header}>
                 <input type="text" placeholder='enter note...'/>
                 <input type="text" placeholder='enter description note...'/>
-                <div><button>CREATE</button></div>
+                <button>CREATE</button>
             </div>
         </div>
     )
