@@ -9,46 +9,94 @@
     @include flex(column, center, 0);
     width: 750px;
     margin: 0 auto;
+    gap: 20px;
 
-    .wrapper h1 {
+    h1 {
         color: #252525;
-        font-family: 'Zen Maru Gothic', serif;
-        font-size: 20px;
+        font: 700 30px Kanit;
+
     }
 
     .header {
+        @include flex(row, row, 15px);
+
+        input {
+            border: 2px solid #6c63ff;
+            border-radius: 5px;
+            padding: 10px 15px;
+            outline: none;
+
+            &:nth-child(1) {
+                width: 256px;
+            }
+
+            &:nth-child(2) {
+                width: 389px;
+            }
+
+            &::placeholder {
+                color: #C3C1E5;
+            }
+        }
+
+        button {
+            border: 2px solid #6c63ff;
+            border-radius: 5px;
+            padding: 10px 15px;
+            display: block;
+            background-color: #6c63ff;
+            cursor: pointer;
+            color: #fff;
+            font: 400 15px Kanit;
+        }
+    }
+
+    .tasks {
+        width: 520px;
         display: flex;
-        gap: 15px;
-    }
+        align-items: baseline;
+        gap: 10px;
 
-    .header input {
-        border: 1px solid #6c63ff;
-        border-radius: 5px;
-        padding: 10px 15px;
-        outline: none;
+        .check {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #6c63ff;
+            border-radius: 3px;
+        }
 
-    }
+        .note {
+            font: 500 20px Kanit;
+            letter-spacing: 0em;
+            text-align: left;
+        }
 
-    .header input:nth-child(1) {
-        width: 256px;
-    }
+        .description {
+            font: 500 20px Kanit;
+            letter-spacing: 0em;
+            text-align: left;
+            color: #C3C1E5;
+        }
 
-    .header input:nth-child(2) {
-        width: 389px;
-    }
+        .edit {
+            background: url('../assets/Frame\ 6.svg') no-repeat;
+            height: 18px;
+            width: 18px;
 
-    .header input::placeholder {
-        color: #C3C1E5;
-    }
+            &:hover {
+                cursor: pointer
+            }
 
-    .header button {
-        border: 1px solid #6c63ff;
-        border-radius: 5px;
-        padding: 10px 15px;
-        display: block;
-        background-color: #6c63ff;
-        cursor: pointer;
-        color: #fff;
-        font-family: 'Zen Maru Gothic', serif;
+            ;
+        }
+
+        .delete {
+            background: url('../assets/trash.svg') no-repeat;
+            height: 18px;
+            width: 18px;
+
+            &:hover {
+                cursor: pointer
+            };
+        }
     }
 }
