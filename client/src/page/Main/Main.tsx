@@ -19,8 +19,8 @@ export default function Main() {
             const response = await axios.post(`http://localhost:3000/task`, task);
             console.log(response);
             setTask({ title: '', description: '' });
-            getAllTasks(); 
-        } catch (error:any) {
+            getAllTasks();
+        } catch (error: any) {
             console.error('Error creating task:', error.message);
         }
     }
@@ -46,7 +46,7 @@ export default function Main() {
     const deleteTask = async (task_id: string) => {
         try {
             await axios.delete(`http://localhost:3000/task/${task_id}`);
-            getAllTasks(); 
+            getAllTasks();
         } catch (error: any) {
             console.error('Error fetching tasks:', error.message);
         }
@@ -60,15 +60,17 @@ export default function Main() {
                 <input type="text" name='description' value={task.description} onChange={changeInput} placeholder='enter description note...' />
                 <button onClick={makeTask}>CREATE</button>
             </div>
-            {array.map((el: iTask) => 
+            {array.map((el: iTask) =>
                 <div className={style.tasks} key={el._id}>
-                    <input type="checkbox"></input>
+                    <label className={style.checkSpec}><input type="checkbox" className={style.realCheckbox}></input>
+                    <span className={style.customCheckbox}></span>
                     <div className={style.note}>{el.title}</div>
-                    <div className={style.description}>{el.description}</div>
+                    <div className={style.description}>{el.description}</div></label>
+                    
                     <div className={style.edit}></div>
                     <div className={style.delete} onClick={() => deleteTask(el._id)}></div>
-                </div> 
+                    <div className={style.line}></div>
+                </div>
             )}
         </div>
-    );
-}
+    )}

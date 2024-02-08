@@ -1,102 +1,161 @@
-@mixin flex($fd, $ai, $gap) {
-    display: flex;
-    flex-direction: $fd;
-    align-items: $ai;
-    gap: $gap;
-}
+ @mixin flex($fd, $ai, $gap) {
+     display: flex;
+     flex-direction: $fd;
+     align-items: $ai;
+     gap: $gap;
+ }
 
-.wrapper {
-    @include flex(column, center, 0);
-    width: 750px;
-    margin: 0 auto;
-    gap: 20px;
+ .wrapper {
+     @include flex(column, center, 0);
+     width: 750px;
+     margin: 0 auto;
+     gap: 20px;
 
-    h1 {
-        color: #252525;
-        font: 700 30px Kanit;
+     h1 {
+         color: #252525;
+         font: 700 30px Kanit;
 
-    }
+     }
 
-    .header {
-        @include flex(row, row, 15px);
+     .header {
+         @include flex(row, row, 15px);
 
-        input {
-            border: 2px solid #6c63ff;
-            border-radius: 5px;
-            padding: 10px 15px;
-            outline: none;
+         input {
+             border: 2px solid #6c63ff;
+             border-radius: 5px;
+             padding: 10px 15px;
+             outline: none;
 
-            &:nth-child(1) {
-                width: 256px;
-            }
+             &:nth-child(1) {
+                 width: 256px;
+             }
 
-            &:nth-child(2) {
-                width: 389px;
-            }
+             &:nth-child(2) {
+                 width: 389px;
+             }
 
-            &::placeholder {
-                color: #C3C1E5;
-            }
-        }
+             &::placeholder {
+                 color: #C3C1E5;
+             }
+         }
 
-        button {
-            border: 2px solid #6c63ff;
-            border-radius: 5px;
-            padding: 10px 15px;
-            display: block;
-            background-color: #6c63ff;
-            cursor: pointer;
-            color: #fff;
-            font: 400 15px Kanit;
-        }
-    }
+         button {
+             border: 2px solid #6c63ff;
+             border-radius: 5px;
+             padding: 10px 15px;
+             display: block;
+             background-color: #6c63ff;
+             cursor: pointer;
+             color: #fff;
+             font: 400 15px Kanit;
+         }
+     }
 
-    .tasks {
-        width: 520px;
-        display: flex;
-        align-items: baseline;
-        gap: 10px;
+     .tasks {
+         width: 520px;
+         display: flex;
+         gap: 10px;
 
-        .check {
-            width: 18px;
-            height: 18px;
-            border: 2px solid #6c63ff;
-            border-radius: 3px;
-        }
 
-        .note {
-            font: 500 20px Kanit;
-            letter-spacing: 0em;
-            text-align: left;
-        }
+         .checkSpec {
+             width: 520px;
+             display: flex;
+             align-items: baseline;
+             gap: 10px;
 
-        .description {
-            font: 500 20px Kanit;
-            letter-spacing: 0em;
-            text-align: left;
-            color: #C3C1E5;
-        }
+             .realCheckbox {
+                 width: 0;
+                 height: 0;
+                 opacity: 0;
+                 position: absolute;
+                 z-index: -1;
+             }
 
-        .edit {
-            background: url('../assets/Frame\ 6.svg') no-repeat;
-            height: 18px;
-            width: 18px;
+             .customCheckbox {
+                 width: 18px;
+                 height: 18px;
+                 border: 2px solid #6c63ff;
+                 border-radius: 3px;
+                 display: inline-block;
+                 position: relative;
+             }
 
-            &:hover {
-                cursor: pointer
-            }
+             .realCheckbox:checked+.customCheckbox {
+                 background-color: #6c63ff;
+             }
 
-            ;
-        }
+             .customCheckbox::before {
+                 content: '';
+                 display: inline-block;
+                 width: 15px;
+                 height: 15px;
+                 background: url('../assets/click.svg') no-repeat;
+                 background-size: contain;
 
-        .delete {
-            background: url('../assets/trash.svg') no-repeat;
-            height: 18px;
-            width: 18px;
+                 position: absolute;
+                 left: 50%;
+                 top: 50%;
+                 transform: translate(-50%, -50%) scale(0);
+                 margin-top: 1px;
 
-            &:hover {
-                cursor: pointer
-            };
-        }
-    }
-}
+                 transition: 0.2s ease-in;
+                 background-color: #6c63ff;
+
+
+             }
+
+             .realCheckbox:checked+.customCheckbox::before {
+                 transform: translate(-50%, -50%) scale(1);
+             }
+
+
+             .check {
+                 width: 18px;
+                 height: 18px;
+                 border: 2px solid #6c63ff;
+                 border-radius: 3px;
+             }
+
+             .note {
+                 font: 500 20px Kanit;
+                 letter-spacing: 0em;
+                 text-align: left;
+             }
+
+             .description {
+                 font: 500 20px Kanit;
+                 letter-spacing: 0em;
+                 text-align: left;
+                 color: #C3C1E5;
+             }
+         }
+
+
+         .edit {
+             background: url('../assets/Frame\ 6.svg') no-repeat;
+             height: 20px;
+             width: 20px;
+
+             &:hover {
+                 cursor: pointer;
+             }
+         }
+
+         .delete {
+             background: url('../assets/trash.svg') no-repeat;
+             height: 20px;
+             width: 20px;
+
+             &:hover {
+                 cursor: pointer;
+             }
+         }
+
+         .line {
+             border: 1px;
+             opacity: 0.5px;
+             background: #6C63FF;
+             width: 1px;
+         }
+     }
+ }
