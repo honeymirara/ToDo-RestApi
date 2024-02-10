@@ -2,6 +2,7 @@ import style from './style.module.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { iTask } from '../../interfaces';
+import Icons from './Icons/Icons'
 
 export default function Main() {
     const [task, setTask] = useState({ title: '', description: '' });
@@ -67,8 +68,12 @@ export default function Main() {
                     <div className={style.note}>{el.title}</div>
                     <div className={style.description}>{el.description}</div></label>
                     
-                    <div className={style.edit}></div>
-                    <div className={style.delete} onClick={() => deleteTask(el._id)}></div>
+                    <div className={style.edit}>
+                        <Icons id='pen'/>
+                    </div>
+                    <div className={style.delete} onClick={() => deleteTask(el._id)}>
+                    <Icons id='trash'/>
+                    </div>
                     <div className={style.line}></div>
                 </div>
             )}
