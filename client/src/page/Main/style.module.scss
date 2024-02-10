@@ -57,6 +57,14 @@
          }
      }
 
+
+     .emptyImage {
+        
+         height: 223px;
+         width: 523px;
+         background: url('./assets/empty.svg') no-repeat;
+     }
+
      .tasks {
          width: 520px;
          display: flex;
@@ -68,6 +76,7 @@
              display: flex;
              align-items: center;
              gap: 10px;
+             cursor: pointer;
 
              .realCheckbox {
                  width: 0;
@@ -165,8 +174,8 @@
              }
 
              &:hover>path {
-                stroke: #130e0e;
-            }
+                 stroke: #130e0e;
+             }
          }
      }
 

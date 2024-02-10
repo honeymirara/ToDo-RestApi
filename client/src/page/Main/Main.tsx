@@ -61,7 +61,13 @@ export default function Main() {
                 <input type="text" name='description' value={task.description} onChange={changeInput} placeholder='enter description note...' />
                 <button onClick={makeTask}>CREATE</button>
             </div>
-            {array.map((el: iTask) =>
+
+            {array.length === 0 ? (
+            <div className={style.emptyImage}>
+
+            </div>
+        ) : (
+            array.map((el: iTask) =>
                 <div className={style.tasks} key={el._id}>
                     <label className={style.checkSpec}><input type="checkbox" className={style.realCheckbox}></input>
                     <span className={style.customCheckbox}></span>
@@ -76,6 +82,6 @@ export default function Main() {
                     </div>
                     <div className={style.line}></div>
                 </div>
-            )}
+            ))}
         </div>
     )}
