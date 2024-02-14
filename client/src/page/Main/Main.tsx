@@ -75,13 +75,11 @@ export default function Main() {
                             <span className={style.customCheckbox}></span>
                             <div className={style.note}>{el.title}</div>
                             <div className={style.description}>{el.description}</div></label>
-
-                        <div onClick={() => setModalInfoOpen(true)} className={style.edit}>
-                            <Icons id='pen' />
-                            <Modal isOpen={modalInfoIsOpen}
-                                onClose={() => setModalInfoOpen(false)} >
-                                   
-                                </Modal>
+                        <div>
+                            <div onClick={() => setModalInfoOpen(true)} className={style.edit}>
+                                <Icons id='pen' />
+                            </div>
+                            <Modal isOpen={modalInfoIsOpen} onClose={() => setModalInfoOpen(false)} />
                         </div>
                         <div className={style.delete} onClick={() => deleteTask(el._id)}>
                             <Icons id='trash' />
