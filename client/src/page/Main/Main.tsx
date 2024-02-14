@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { iTask } from '../../interfaces';
 import Icons from './Icons/Icons'
+import Modal from '../Modal/Modal';
 
 export default function Main() {
     const [task, setTask] = useState({ title: '', description: '' });
     const [array, setArray] = useState<iTask[]>([]);
+    const [modalInfoIsOpen, setModalInfoOpen] = useState(false)
 
     const changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTask({ ...task, [event.target.name]: event.target.value });
@@ -63,25 +65,30 @@ export default function Main() {
             </div>
 
             {array.length === 0 ? (
-            <div className={style.emptyImage}>
+                <div className={style.emptyImage}>
 
-            </div>
-        ) : (
-            array.map((el: iTask) =>
-                <div className={style.tasks} key={el._id}>
-                    <label className={style.checkSpec}><input type="checkbox" className={style.realCheckbox}></input>
-                    <span className={style.customCheckbox}></span>
-                    <div className={style.note}>{el.title}</div>
-                    <div className={style.description}>{el.description}</div></label>
-                    
-                    <div className={style.edit}>
-                        <Icons id='pen'/>
-                    </div>
-                    <div className={style.delete} onClick={() => deleteTask(el._id)}>
-                    <Icons id='trash'/>
-                    </div>
-                    <div className={style.line}></div>
                 </div>
-            ))}
+            ) : (
+                array.map((el: iTask) =>
+                    <div className={style.tasks} key={el._id}>
+                        <label className={style.checkSpec}><input type="checkbox" className={style.realCheckbox}></input>
+                            <span className={style.customCheckbox}></span>
+                            <div className={style.note}>{el.title}</div>
+                            <div className={style.description}>{el.description}</div></label>
+
+                        <div onClick={() => setModalInfoOpen(true)} className={style.edit}>
+                            <Icons id='pen' />
+                            <Modal isOpen={modalInfoIsOpen}
+                                onClose={() => setModalInfoOpen(false)} >
+                                   
+                                </Modal>
+                        </div>
+                        <div className={style.delete} onClick={() => deleteTask(el._id)}>
+                            <Icons id='trash' />
+                        </div>
+                        <div className={style.line}></div>
+                    </div>
+                ))}
         </div>
-    )}
+    )
+}
