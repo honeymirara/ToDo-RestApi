@@ -1,18 +1,17 @@
 import style from './style.module.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { iTask } from '../../interfaces';
+import { iTask } from '../../interfaces/index';
 import Icons from './Icons/Icons'
 import Modal from '../Modal/Modal';
 
 export default function Main() {
     const [task, setTask] = useState({ title: '', description: '' });
     const [array, setArray] = useState<iTask[]>([]);
-    const [modalInfoIsOpen, setModalInfoOpen] = useState(false)
+    const [modalInfoIsOpen, setModalInfoOpen] = useState(false);
+    const [active, setActive] = useState<iTask>({ _id: '', title: '', description: '', isCheck: false });
 
-    const changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTask({ ...task, [event.target.name]: event.target.value });
-    }
+
 
     async function makeTask() {
         try {
@@ -38,7 +37,7 @@ export default function Main() {
             setArray(listTaskCheck);
             console.log(listTaskCheck)
         } catch (error: any) {
-            console.error('Error fetching tasks:', error.message);
+            console.error('Error tasks:', error.message);
         }
     }
 
@@ -51,16 +50,23 @@ export default function Main() {
             await axios.delete(`http://localhost:3000/task/${task_id}`);
             getAllTasks();
         } catch (error: any) {
-            console.error('Error fetching tasks:', error.message);
+            console.error('Error tasks:', error.message);
         }
     };
+
+    const openModalWithActiveTask = (activeTask: iTask) => {
+        setActive(activeTask);
+        setModalInfoOpen(true);
+    };
+
+
 
     return (
         <div className={style.wrapper}>
             <h1>TODO LIST</h1>
             <div className={style.header}>
-                <input type="text" name='title' value={task.title} onChange={changeInput} placeholder='enter note...' />
-                <input type="text" name='description' value={task.description} onChange={changeInput} placeholder='enter description note...' />
+                <input type="text" name='title' value={task.title} onChange={(e) => setTask({ ...task, title: e.target.value })} placeholder='enter note...' />
+                <input type="text" name='description' value={task.description} onChange={(e) => setTask({ ...task, description: e.target.value })} placeholder='enter description note...' />
                 <button onClick={makeTask}>CREATE</button>
             </div>
 
@@ -71,15 +77,19 @@ export default function Main() {
             ) : (
                 array.map((el: iTask) =>
                     <div className={style.tasks} key={el._id}>
-                        <label className={style.checkSpec}><input type="checkbox" className={style.realCheckbox}></input>
+                        <label className={style.checkSpec}><input type="checkbox" className={style.realCheckbox} ></input>
                             <span className={style.customCheckbox}></span>
                             <div className={style.note}>{el.title}</div>
                             <div className={style.description}>{el.description}</div></label>
                         <div>
-                            <div onClick={() => setModalInfoOpen(true)} className={style.edit}>
+                            <div className={style.edit} onClick={() => openModalWithActiveTask(el)} >
                                 <Icons id='pen' />
                             </div>
-                            <Modal isOpen={modalInfoIsOpen} onClose={() => setModalInfoOpen(false)} />
+                            <Modal
+                                isOpen={modalInfoIsOpen}
+                                onClose={() => setModalInfoOpen(false)}
+                                active={active} 
+                            />
                         </div>
                         <div className={style.delete} onClick={() => deleteTask(el._id)}>
                             <Icons id='trash' />
@@ -90,3 +100,4 @@ export default function Main() {
         </div>
     )
 }
+
